@@ -25,11 +25,11 @@ class ProcessAnalyzer:
         else:
             load_dotenv()
             if not os.getenv("OPENAI_API_KEY"):
-                raise ValueError("Chave da API OpenAI não encontrada. Forneça-a ou configure no arquivo .env.")
+                raise ValueError("OpenAI API key not found. Please provide it or set it in the .env file.")
 
     def _load_faiss_index(self, faiss_index_path: str) -> FAISS:
         if not os.path.exists(faiss_index_path):
-            raise FileNotFoundError(f"Índice FAISS não encontrado em {faiss_index_path}")
+            raise FileNotFoundError(f"FAISS index not found at path: {faiss_index_path}")
         return FAISS.load_local(
             faiss_index_path, 
             OpenAIEmbeddings(),
@@ -68,7 +68,7 @@ class ProcessAnalyzer:
         )
         process_text = df_input['combined_text'].to_string(index=False)
         
-        analysis_prompt = """
+        analysis_prompt = f"""
         Você é um consultor sênior especializado em otimização de processos de uma das principais empresas globais de consultoria estratégica. 
         Com base em sua vasta experiência em projetos de transformação organizacional e melhoria contínua, analise criteriosamente o processo a seguir:
 
@@ -95,35 +95,13 @@ class ProcessAnalyzer:
         Retorne uma lista de dicionários em Python contendo exatamente os seguintes campos:
 
         [
-            {
+            {{
                 "oportunidade_melhoria": "Descrição clara e específica da oportunidade identificada",
                 "tarefa": "Ação concreta e mensurável para implementar a melhoria",
                 "criterio_aceitacao": "Métricas e resultados específicos que indicam o sucesso da implementação"
-            },
+            }},
             # ... outras oportunidades de melhoria
         ]
-
-        CRITÉRIOS PARA FORMULAÇÃO DAS RESPOSTAS:
-        1. Oportunidades de Melhoria:
-        - Devem ser específicas e acionáveis
-        - Baseadas em evidências do processo atual
-        - Alinhadas com objetivos de negócio
-
-        2. Tarefas:
-        - Descritas em formato SMART (Específico, Mensurável, Atingível, Relevante, Temporal)
-        - Incluir responsabilidades claras
-        - Considerar pré-requisitos e dependências
-
-        3. Critérios de Aceitação:
-        - Métricas quantitativas sempre que possível
-        - Indicadores de sucesso claros e mensuráveis
-        - Prazos e marcos definidos
-
-        RESTRIÇÕES:
-        - Mantenha cada sugestão focada em um único aspecto do processo
-        - Priorize melhorias com maior impacto e menor esforço de implementação
-        - Considere limitações de recursos e restrições técnicas
-        - Forneça apenas sugestões realistas e implementáveis
 
         FORMATO DE SAÍDA:
         Retorne exclusivamente a lista de dicionários Python, sem comentários adicionais ou explicações.
