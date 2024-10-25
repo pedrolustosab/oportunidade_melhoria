@@ -69,8 +69,7 @@ class ProcessAnalyzer:
         process_text = df_input['combined_text'].to_string(index=False)
         
         analysis_prompt = f"""
-        Você é um consultor sênior especializado em otimização de processos de uma das principais empresas globais de consultoria estratégica. 
-        Com base em sua vasta experiência em projetos de transformação organizacional e melhoria contínua, analise criteriosamente o processo a seguir:
+        Você é um consultor sênior especializado em otimização de processos de uma das principais empresas globais de consultoria estratégica. Com base em sua vasta experiência em projetos de transformação organizacional e melhoria contínua, analise criteriosamente o processo a seguir:
 
         PROCESSO ANALISADO:
         {process_text}
@@ -117,7 +116,7 @@ class ProcessAnalyzer:
         json_result = json.loads(result)
         df_result = pd.DataFrame(json_result)
         return df_result
-
+    
 def analyze_single_process(process_data: dict, faiss_index_path: str = "process_index.faiss", api_key: str = None) -> pd.DataFrame:
     """
     Função auxiliar para analisar um único processo de forma simplificada.

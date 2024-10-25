@@ -7,12 +7,12 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 processo = [{
-        "ramo_empresa": "Construção Civil",
-        "direcionadores": "Diminuir disperdicio de recursos e reduzir custos",
+        "ramo_empresa": "Moda",
+        "direcionadores": "Aumentar lucro",
         "nome_processo": "Otimização",
         "atividade": "Otimaização de processo",
         "evento": "Otimaização",
-        "causa": "Processo burocrático",
+        "causa": "Aumento do preço dos insumos",
         "operaciona_atividade": "",
         "sistema_relacionado": "",
         "solucao_gap": "",
